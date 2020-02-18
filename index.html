@@ -27,8 +27,25 @@
         </div>
         <div class='container qandaScreen' style='display:none;'>
             <div class='row'>
-                <div class='col-6 question'><div>Some Q</div></div>
-                <div class="col-6 answer"><div>Some A</div></div>
+                <div class='col-6 question'>
+                    <div class='card'>
+                        <span>
+                            <h5 class='card-title'>Question 1</h5>
+                        </span>
+                        <p class='card-text'>This is a test question</p>
+                    </div>
+                </div>
+                <div class="col-6 answer card">
+                    <div class="list-group" id="answerList" role="tablist">
+                        <a class="list-group-item list-group-item-action" id="answer-a">A</a>
+                        <a class="list-group-item list-group-item-action" id="answer-b">B</a>
+                        <a class="list-group-item list-group-item-action" id="answer-c">C</a>
+                        <a class="list-group-item list-group-item-action" id="answer-d">D</a>
+                    </div>
+                    <div>
+                        <button class='btn btn-sm btn-primary submitAnswer float-right' id='btnSubmitAnswer'>Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class='container summaryScreen' style='display:none;'>
