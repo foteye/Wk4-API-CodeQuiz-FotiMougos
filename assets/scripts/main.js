@@ -4,6 +4,8 @@
 //Onload
 $(document).ready(function() {
     console.log( "Jquery working, page ready!" );
+    window.localStorage.setItem("data", "something");
+
 });
 
 //Start Quiz
