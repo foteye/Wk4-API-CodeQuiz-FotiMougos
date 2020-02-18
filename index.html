@@ -4,9 +4,56 @@
         <title>Foti's Code Quiz</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <script src="assets/scripts/main.js"></script>
+        <script src="assets/scripts/main.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
-
+        <div class='container startScreen card'>
+            <div class='row'>
+                <div class='col-12'>
+                    <h5 class='card-title text-center'>Foti's Code Quiz</h5>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-12 card-text'>
+                    <p>Welcome to my programming quiz! I hope you find it both challenging and informative. Highscores are hidden until the end to avoid upsets. Good luck, and remember, there are no wrong answers, unless you select it! Click the button below to get started.</p>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-12 startQuiz'>
+                    <button id='btnStartQuiz' class="btn btn-primary btn-sm">Start Quiz</a>
+                </div>
+            </div>
+        </div>
+        <div class='container qandaScreen' hidden>
+            <div class='row'>
+                <div class='col-6 question'><div>Some Q</div></div>
+                <div class="col-6 answer"><div>Some A</div></div>
+            </div>
+        </div>
+        <div class='container summaryScreen' hidden>
+            <div class='row'></div>
+        </div>
     </body>
 </html>
+
+<!-- START PAGE FORMAT
+
+-->
+
+<!-- SUMMARY PAGE FORMAT
+    
+-->
+
+<!-- QUESTION/ANSWER FORMAT
+    <div class='container'>
+            <div class='row'>
+                <div class='col-6 question'>
+
+                </div>
+                <div class="col-6 answer">
+                    
+                </div>
+            </div>
+        </div>
+-->

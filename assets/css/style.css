@@ -1,0 +1,12 @@
+body {
+    margin-top: 20px;
+    background-color: whitesmoke;
+}
+
+.card {
+    padding: 15px;
+}
+
+.startQuiz {
+    margin-top: 10px;
+}
