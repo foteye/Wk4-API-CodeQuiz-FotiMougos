@@ -15,7 +15,9 @@ This is a time limited quiz that will ask a series of multiple-choice questions 
 
   * Persistance is irrelevent until this is launched, this will be the last task I complete.
   * Intellisense extensions (i.e. jquery and bootstrap) can save you alot of time flipping back and forth between IDE and documentation in the browser
+    * Update: I'm still flipping to browser documentation. sigh.
   * Panels have been deprecated in Bootstrap 4, replaced with Cards. Important to review changelogs, especially in major versions. Take nothing for granted!
   * You don't have to have Javascript interact with local files. You can use the browser cache to store data.
   * Event handlers should have as little code as possible in them. The only operation they are there to do is to HANDLE AN EVENT.
-  *
+  * jQuery makes things REALLY easy to manipulate, adding classes, finding children, and handling events.
+  * Classes don't really exist pre-ES6, but they are a really neat way of structuring your program.

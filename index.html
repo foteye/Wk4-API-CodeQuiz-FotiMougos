@@ -30,9 +30,9 @@
                 <div class='col-6 question'>
                     <div class='card'>
                         <span>
-                            <h5 class='card-title'>Question 1</h5>
+                            <h5 id='questionNumber' class='card-title'>Question 1</h5>
                         </span>
-                        <p class='card-text'>This is a test question</p>
+                        <p id='questionText' class='card-text'>This is a test question</p>
                     </div>
                 </div>
                 <div class="col-6 answer card">
@@ -45,6 +45,11 @@
                     <div>
                         <button class='btn btn-sm btn-primary submitAnswer float-right' id='btnSubmitAnswer'>Submit</button>
                     </div>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-12 timer'>
+                    <div class="row justify-content-center border rounded-pill" id="countdown"></div>
                 </div>
             </div>
         </div>
