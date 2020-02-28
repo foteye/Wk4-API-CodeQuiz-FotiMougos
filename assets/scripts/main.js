@@ -1,12 +1,21 @@
 /* Event Handlers */
 //On Load
 $(document).ready(function() {
-
+    window.localStorage.clear();
 });
 
 // Start Quiz Button is Pressed
 $('#btnStartQuiz').click(function () {
-    gameLoop();    
+    $('.startScreen').hide();
+    $('.qandaScreen').show();
+    game();    
+});
+
+$('#btnRestartQuiz').click(function () {
+    $('#initialInput').text('');
+    $('.summaryScreen').hide();
+    $('.qandaScreen').show();
+    game();    
 });
 
 $('#answerList').children().click(function (event){
@@ -14,14 +23,23 @@ $('#answerList').children().click(function (event){
     $(event.target).addClass('active');
 });
 
+$("#saveInitials").click(function (){
+    saveInitials();
+});
+
+$(".summaryScreen").on('refreshHS', function(){
+    updateHighScores();
+});
+
+
 /* End Event Handlers */
 
 class Timer {
-    constructor(display){
+    constructor(display, time){
         this.timer = display;
         this.startTime = "";
         this.duration = "";
-        this.totalTime = 300000;
+        this.totalTime = time * 1000; //Convert to MS
     }
 
     start(){
@@ -37,6 +55,11 @@ class Timer {
 
         $('#countdown').text("Questions Answered: " + localStorage.getItem('answeredQuestions')  + " | Time Left: " + minutes + "m " + seconds + "s");
             console.log(minutes + "m " + seconds + "s");
+
+        if (minutes == 0 && seconds == 0){
+            $(".qandaScreen").trigger('timeup');
+            return;
+        }
 
         },100);
     }
@@ -93,10 +116,7 @@ class Quiz {
         this.score = 0;
         this.answeredQuestions = 0;
         window.localStorage.setItem('answeredQuestions', 0);
-        window.localStorage.setItem('finished', false);
-
-        $('.startScreen').hide();
-        $('.qandaScreen').show();
+        window.localStorage.setItem('totalScore', 0);
 
         this.loadNextQuestion();
     }
@@ -109,7 +129,7 @@ class Quiz {
     */
     loadNextQuestion(){
         if (this.questions.length  === 0){
-            window.localStorage.setItem('finished', true);
+            $(".qandaScreen").trigger('timeup');
             return;
         }
 
@@ -149,7 +169,7 @@ class Quiz {
 
         if (submittedAnswer == correctAnswer){
             //Correct answer
-            this.score += 1;
+            window.localStorage.setItem('totalScore', parseInt(window.localStorage.getItem('totalScore')) + 1);
         }
 
         this.answeredQuestions += 1;
@@ -160,6 +180,8 @@ class Quiz {
     endQuiz(){
         $('.qandaScreen').hide();
         $('.summaryScreen').show();
+        $('#scoreModal').modal('show');
+        $('#userScore').text('Your Score: ' + localStorage.getItem('totalScore'));
     }
 
     
@@ -167,8 +189,16 @@ class Quiz {
 
 //Start Quiz & Timer - This should be the game loop
 //TODO: Start timer
-function gameLoop(){
+function game(){
     var quiz = new Quiz();
+    
+    var timer = new Timer($('#timer'), 180); //180 Seconds
+    timer.start();
+    
+    $(".qandaScreen").on('timeup', function(event){
+        timer.stop();
+        quiz.endQuiz();
+    });
 
     $('#btnSubmitAnswer').click(function () {
         if ($("#answerList").children('active')){
@@ -177,15 +207,47 @@ function gameLoop(){
             alert('Please select an answer');
         } 
     });
-    
-    var timer = new Timer($('#timer'));
-    timer.start();
-    
-    //Game Finished
-    // timer.stop();
-    console.log(quiz);
-
 }
 
+// After save button is clicked on Modal, save initials in local storage
+function saveInitials(){
+    var highScores = localStorage.getItem('highScores');
+
+    //Save highscore to localstorage
+    if (!highScores){
+        localStorage.setItem('highScores', JSON.stringify([{'init': ($('#initialInput').val()), 'scr': localStorage.getItem('totalScore')}]));
+    } else {
+        highScores = JSON.parse(highScores);
+        highScores.push({'init': $('#initialInput').val(), 'scr': localStorage.getItem('totalScore')});
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+    }
+
+    //Close modal
+    $('#scoreModal').modal('hide');
+    $(".summaryScreen").trigger('refreshHS');
+}
+
+// Update the high scores on the scoreSummary Screen
+function updateHighScores(){
+    $("#highScores").children().children().not(':first-child').remove(); //Table.tbody.tr(not heading row)
+    var highScores = localStorage.getItem('highScores');
+    if (highScores){
+        highScores = sortScores(JSON.parse(highScores));
+        var i = 1;
+        for (score of highScores){
+            var tr = $("<tr>");
+            tr.append($('<th>' + i + '</th>'))
+            tr.append($('<td>' + score.init + '</td>'));
+            tr.append($('<td>' + score.scr + '</td>'));
+            $("#highScores").append(tr);
+            i++;
+        }
+    }
+}
+
+//Expecting JSON object
+function sortScores(highScores){
+    return highScores.sort((a, b) => (a.scr < b.scr) ? 1 : -1)
+}
 
 

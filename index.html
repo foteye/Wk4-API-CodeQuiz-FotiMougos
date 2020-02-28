@@ -6,6 +6,9 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <script src="assets/scripts/main.js" defer></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
     </head>
     <body>
         <div class='container startScreen card'>
@@ -17,11 +20,12 @@
             <div class='row'>
                 <div class='col-12 card-text'>
                     <p>Welcome to my programming quiz! I hope you find it both challenging and informative. Highscores are hidden until the end to avoid upsets. Good luck, and remember, there are no wrong answers, unless you select it! Click the button below to get started.</p>
+                    <p>NB: Refreshing the page will clear local data. Use the reset button on the high score screen.</p>
                 </div>
             </div>
             <div class='row'>
                 <div class='col-12 startQuiz'>
-                    <button id='btnStartQuiz' class="btn btn-primary btn-sm">Start Quiz</a>
+                    <button id='btnStartQuiz' class="btn btn-primary btn-sm">Start Quiz</button>
                 </div>
             </div>
         </div>
@@ -29,9 +33,7 @@
             <div class='row'>
                 <div class='col-6 question'>
                     <div class='card'>
-                        <span>
-                            <h5 id='questionNumber' class='card-title'>Question 1</h5>
-                        </span>
+                        <h5><span id='questionNumber' class='card-title'></span></h5>
                         <p id='questionText' class='card-text'>This is a test question</p>
                     </div>
                 </div>
@@ -53,29 +55,42 @@
                 </div>
             </div>
         </div>
-        <div class='container summaryScreen' style='display:none;'>
-            <div class='row'></div>
-        </div>
-    </body>
-</html>
-
-<!-- START PAGE FORMAT
-
--->
-
-<!-- SUMMARY PAGE FORMAT
-    
--->
-
-<!-- QUESTION/ANSWER FORMAT
-    <div class='container'>
+        <div class='container summaryScreen card' style='display:none;'>
             <div class='row'>
-                <div class='col-6 question'>
-
+                <div class='col-12'>
+                    <h5 class='card-title text-center'>You Finished! (Or Not!)</h5>
                 </div>
-                <div class="col-6 answer">
-                    
+            </div>
+            <div class='row'>
+                <div class='col-12 card-text'>
+                    <table id='highScores' class='table'><tr><th>Rank</th><th>Initials</th><th>Score</th></tr></table>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-12'>
+                    <button id='btnRestartQuiz' class="btn btn-primary btn-sm">Restart Quiz</button>
                 </div>
             </div>
         </div>
--->
+        <!-- Modal -->
+        <div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="EnterInitials" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scoreModalTitle">Enter Initials!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="initialInput">
+                        <span id="userScore"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button id='saveInitials' type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
