@@ -128,6 +128,7 @@ class Quiz {
             * Answers => #answerList children (randomize)
     */
     loadNextQuestion(){
+        console.log(this);
         if (this.questions.length  === 0){
             $(".qandaScreen").trigger('timeup');
             return;
@@ -182,9 +183,8 @@ class Quiz {
         $('.summaryScreen').show();
         $('#scoreModal').modal('show');
         $('#userScore').text('Your Score: ' + localStorage.getItem('totalScore'));
-    }
 
-    
+    }   
 }
 
 //Start Quiz & Timer - This should be the game loop
@@ -195,12 +195,12 @@ function game(){
     var timer = new Timer($('#timer'), 180); //180 Seconds
     timer.start();
     
-    $(".qandaScreen").on('timeup', function(event){
+    $(".qandaScreen").off().on('timeup', function(event){
         timer.stop();
         quiz.endQuiz();
     });
 
-    $('#btnSubmitAnswer').click(function () {
+    $('#btnSubmitAnswer').off().click(function () {
         if ($("#answerList").children('active')){
             quiz.submitAnswer();
         } else {
