@@ -200,11 +200,11 @@ function game(){
         quiz.endQuiz();
     });
 
-    $('#btnSubmitAnswer').off().click(function () {
-        if ($("#answerList").children('active')){
+    $('#btnSubmitAnswer').off().on().click(function () {
+        if ($("#answerList").children('.active').length > 0){
             quiz.submitAnswer();
         } else {
-            alert('Please select an answer');
+            alert('Please select an answer'); //Stops timer but c'est la vie
         } 
     });
 }
